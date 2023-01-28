@@ -1,0 +1,8 @@
+dag = DAG()
+n1 = Node(1, 2, 3)
+n2 = Node(2, 3, 4)
+dag.add_node(n1)
+dag.add_node(n2)
+dag.add_edge(n1, n2)
+json_str = dag.serialize()
+print(json_str)
