@@ -1,3 +1,5 @@
+import pdb
+
 class DAG:
     def __init__(self):
         self.graph = {}
@@ -9,6 +11,7 @@ class DAG:
             self.graph[ node ] = []
         
     def add_edge(self, node1, node2):
+        #pdb.set_trace()
         if node1 not in self.graph:
             self.graph[node1] = []
         if node2 not in self.graph:
