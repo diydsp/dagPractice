@@ -1,8 +1,9 @@
 import pygame
 
 class DAGVisualizer:
-    def __init__(self, dag):
+    def __init__(self, dag, dagNodeDef ):
         self.dag = dag
+        self.dagNodeDef = dagNodeDef
         pygame.init()
         self.width = 800
         self.height = 600
@@ -20,11 +21,14 @@ class DAGVisualizer:
             if (node.x - pos[0]) ** 2 + (node.y - pos[1]) ** 2 <= 20 ** 2:
                 self.selected_node = node
                 break
+
         # Check if the user has clicked on the background
         if (self.selected_node is None and 
             pygame.mouse.get_pressed()[0]):
-            self.selected_node = Node(pos[0], pos[1], value=float(input("Enter the value of the node:")))
-            self.dag.add_node(self.selected_node)
+            nodeVal = float(input("Enter the value of the node:"))
+            self.selected_node = self.dagNodeDef.dagNode( nodeVal, pos[0], pos[1] )
+            #self.selected_node = Node(pos[0], pos[1], value=float(input("Enter the value of the node:")))
+            self.dag.add_node(self.selected_node, pos[0], pos[1] )
         elif (self.selected_node is not None and 
               pygame.mouse.get_pressed()[2]):
             self.dag.remove_node(self.selected_node)
@@ -40,6 +44,8 @@ class DAGVisualizer:
                     self.handle_mouse_events()
                 elif event.type == pygame.MOUSEBUTTONUP:
                     self.handle_mouse_up_events()
+
+                # drag node
                 elif event.type == pygame.MOUSEMOTION:
                     if self.selected_node is not None:
                         self.selected_node.x, self.selected_node.y = event.pos

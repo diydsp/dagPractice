@@ -2,7 +2,7 @@
 
 import importlib as il
 
-import dag0  # dagNode definition
+import dag0 as dagNodeDef # dagNode definition
 import dag1  # DAG class
 #import dag2  as digviz # basic DAG Visualzer
 #import dag4  as dagViz # 2nd DAG Visualzer
@@ -14,15 +14,15 @@ import pdb
 
 dag = dag1.DAG()
 
-a = dag0.dagNode('a',50,60)
-b = dag0.dagNode('b',100,65)
+a = dagNodeDef.dagNode('a',50,60)
+b = dagNodeDef.dagNode('b',100,65)
 dag.add_edge( a, b )
 
-dagVis = dagViz.DAGVisualizer( dag )
+dagVis = dagViz.DAGVisualizer( dag, dagNodeDef )
 dagVis.run()
 
 def reload():
-    il.reload(dag0)
+    il.reload( dagNodeDef )
     il.reload(dag1)
     il.reload(dag2)
     
