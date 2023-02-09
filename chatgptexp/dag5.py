@@ -50,6 +50,20 @@ class DAGVisualizer:
                     if self.selected_node is not None:
                         self.selected_node.x, self.selected_node.y = event.pos
 
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_s:
+                        print( 'saving' )
+                        serialized = self.dag.serialize()
+                        print( serialized )
+                        with open( 'graph.json','w') as graphout:
+                            graphout.write(serialized)
+                    elif event.key == pygame.K_l:
+                        print('loading')
+                        with open( 'graph.json','r' ) as graphin:
+                            graphJson = graphin.read()
+                            print( graphJson )
+                            self.dag.deserialize( graphJson )
+
             self.screen.fill((255, 255, 255))
 
             # Draw edges
